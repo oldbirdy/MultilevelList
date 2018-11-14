@@ -11,6 +11,7 @@ public class TreePoint {
     private String ISLEAF;     //0,            //是否是叶子节点   1为叶子节点
     private int DISPLAY_ORDER; // 1       //同一个级别的显示顺序
     private boolean isExpand = false;  //是否展开了
+    private boolean isSelected = false; //是否选中了
 
 
     public TreePoint(String ID, String NNAME, String PARENTID, String ISLEAF, int DISPLAY_ORDER) {
@@ -69,5 +70,11 @@ public class TreePoint {
         isExpand = expand;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
 
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }
