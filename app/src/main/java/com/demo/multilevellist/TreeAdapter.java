@@ -199,7 +199,19 @@ public class TreeAdapter extends BaseAdapter {
         return convertView;
     }
 
-
+    //折叠节点
+    public void collapase(TreePoint point) {
+	for (TreePoint tempPoint : pointList) {
+		if (tempPoint.getPARENTID().equals(point.getID())) {
+			//自己折叠
+			tempPoint.setExpand(false);
+			//是否为子节点
+			if ("0".equals(tempPoint.getISLEAF())) {
+				//折叠子节点的子节点
+				collapase(tempPoint);
+			}
+		}
+	}}
 
     public void onItemClick(int position) {
         TreePoint treePoint = (TreePoint) getItem(position);
@@ -208,14 +220,8 @@ public class TreeAdapter extends BaseAdapter {
             Toast.makeText(mcontext, getSubmitResult(treePoint), Toast.LENGTH_SHORT).show();
         } else {  //如果点击的是父类
             if (treePoint.isExpand()) {
-                for (TreePoint tempPoint : pointList) {
-                    if (tempPoint.getPARENTID().equals(treePoint.getID())) {
-                        if ("0".equals(treePoint.getISLEAF())) {
-                            tempPoint.setExpand(false);
-                        }
-                    }
-                }
-                treePoint.setExpand(false);
+                collapase(treePoint);
+                //treePoint.setExpand(false);
             } else {
                 treePoint.setExpand(true);
             }
